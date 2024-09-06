@@ -6,18 +6,22 @@ import org.springframework.stereotype.Service;
 
 import com.pluclink.api.modules.Link.dtos.LinkRecordDto;
 import com.pluclink.api.modules.Link.models.Link;
+import com.pluclink.api.modules.Link.repositories.LinkRepository;
 
 @Service
 public class CreateNewShortLinkService {
 
     @Autowired
-    private GenerateShortUrl generateShortUrl;
+    protected GenerateShortUrlService generateShortUrlService;
+ 
+    @Autowired
+    protected LinkRepository linkRepository;
     
     public Link execute(LinkRecordDto dto){
         Link link = new Link();
         BeanUtils.copyProperties(dto, link);
-        generateShortUrl.execute(link.getUrl());
-        
-        return new Link();
+        link.setShortUrl(generateShortUrlService.execute());
+        linkRepository.save(link);
+        return link;
     }
 }
