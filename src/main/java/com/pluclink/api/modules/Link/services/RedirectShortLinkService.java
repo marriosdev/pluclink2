@@ -38,7 +38,7 @@ public class RedirectShortLinkService {
         LinkTracker tracker = new LinkTracker();
 
         tracker.setLink(link);
-        tracker.setIp(ip); // TODO: real ip
+        tracker.setIp(ip); 
         tracker.setCreatedAt(LocalDateTime.now());
         linkTrackerRepository.save(tracker);
 
