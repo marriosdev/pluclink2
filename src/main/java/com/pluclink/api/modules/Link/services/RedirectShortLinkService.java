@@ -32,7 +32,7 @@ public class RedirectShortLinkService {
             throw new NotFoundException("Item não encontrado");
         }
 
-        var link = new Link();
+        Link link = new Link();
         BeanUtils.copyProperties(reference.get(), link);
 
         LinkTracker tracker = new LinkTracker();
