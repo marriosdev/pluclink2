@@ -26,7 +26,7 @@ public class RedirectShortLinkService {
     @Autowired
     protected LinkTrackerRepository linkTrackerRepository;
 
-    public OnlyUuidAndUrlLinkProjection execute(String shortUrl) throws NotFoundException {
+    public OnlyUuidAndUrlLinkProjection execute(String shortUrl, String ip) throws NotFoundException {
         Optional<OnlyUuidAndUrlLinkProjection> reference = linkRepository.findUrlAndUuidByShortUrl(shortUrl);
         if (reference.isEmpty()) {
             throw new NotFoundException("Item não encontrado");
@@ -38,7 +38,7 @@ public class RedirectShortLinkService {
         LinkTracker tracker = new LinkTracker();
 
         tracker.setLink(link);
-        tracker.setIp("127.0.0.1"); // TODO: real ip
+        tracker.setIp(ip); // TODO: real ip
         tracker.setCreatedAt(LocalDateTime.now());
         linkTrackerRepository.save(tracker);
 

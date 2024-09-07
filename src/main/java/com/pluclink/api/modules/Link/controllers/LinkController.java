@@ -8,14 +8,14 @@ import com.pluclink.api.modules.Link.services.CreateNewShortLinkService;
 import com.pluclink.api.modules.Link.services.GetLinkDetailsService;
 import com.pluclink.api.modules.Link.services.RedirectShortLinkService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,8 +41,8 @@ public class LinkController {
     }
 
     @GetMapping("/{shortUrl}")
-    public ResponseEntity<Object> redirectUrl(@PathVariable(value="shortUrl") String shortUrl) throws NotFoundException {
-        return ResponseEntity.status(HttpStatus.OK).body(redirectShortLinkService.execute(shortUrl));
+    public ResponseEntity<Object> redirectUrl(@PathVariable(value="shortUrl") String shortUrl, HttpServletRequest request) throws NotFoundException {
+        return ResponseEntity.status(HttpStatus.OK).body(redirectShortLinkService.execute(shortUrl, request.getRemoteAddr()));
     }
 
     @GetMapping("links/{uuid}")
