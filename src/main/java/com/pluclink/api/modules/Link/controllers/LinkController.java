@@ -4,7 +4,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pluclink.api.modules.Link.dtos.LinkRecordDto;
 import com.pluclink.api.modules.Link.models.Link;
-import com.pluclink.api.modules.Link.repositories.LinkRepository;
 import com.pluclink.api.modules.Link.services.CreateNewShortLinkService;
 import com.pluclink.api.modules.Link.services.GetLinkDetailsService;
 import com.pluclink.api.modules.Link.services.RedirectShortLinkService;
@@ -27,9 +26,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RestController
 public class LinkController {
     
-    @Autowired
-    protected LinkRepository linkRepository;
-
     @Autowired
     protected CreateNewShortLinkService createNewShortLinkService;
     
