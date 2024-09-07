@@ -17,26 +17,22 @@ import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 
+@Getter @Setter
 @Entity
 public class Link {
-    @Getter @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(length = 36)
     private UUID uuid;
     
-    @Getter @Setter
     private String url;
     
     @Column(length = 6)
-    @Getter @Setter
     private String shortUrl;
     
     @Column(updatable = false)
-    @Getter @Setter
     private LocalDateTime createdAt;
-    
+
     @OneToMany(mappedBy = "link")
-    @Getter @Setter
     private List<LinkTracker> trackers;
 }

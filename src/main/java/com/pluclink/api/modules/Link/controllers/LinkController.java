@@ -42,9 +42,7 @@ public class LinkController {
 
     @GetMapping("/{shortUrl}")
     public ResponseEntity<Object> redirectUrl(@PathVariable(value="shortUrl") String shortUrl) throws NotFoundException {
-        Map<String, String> response = new HashMap<>();
-        response.put("url", redirectShortLinkService.execute(shortUrl));
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.status(HttpStatus.OK).body(redirectShortLinkService.execute(shortUrl));
     }
 
     @GetMapping("links/{uuid}")

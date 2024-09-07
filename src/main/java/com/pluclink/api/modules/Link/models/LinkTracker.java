@@ -15,23 +15,20 @@ import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
+@Getter @Setter
 @Entity
 public class LinkTracker {
-    @Getter @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(length = 36)
     private UUID uuid;
     
-    @Getter @Setter
     @Column(length = 39)
     private String ip;
     
-    @Getter @Setter
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
-    @Getter @Setter
     @ManyToOne
     @JoinColumn(name="link_id")
     @JsonIgnore
