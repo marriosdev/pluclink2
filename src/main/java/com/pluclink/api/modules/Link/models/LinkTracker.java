@@ -1,24 +1,22 @@
 package com.pluclink.api.modules.Link.models;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
-import org.hibernate.annotations.Collate;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-public class Link {
+public class LinkTracker {
     @Getter @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,17 +24,16 @@ public class Link {
     private UUID uuid;
     
     @Getter @Setter
-    private String url;
+    @Column(length = 39)
+    private String ip;
     
-    @Column(length = 6)
     @Getter @Setter
-    private String shortUrl;
-    
     @Column(updatable = false)
-    @Getter @Setter
     private LocalDateTime createdAt;
-    
-    @OneToMany(mappedBy = "link")
+
     @Getter @Setter
-    private List<LinkTracker> trackers;
+    @ManyToOne
+    @JoinColumn(name="link_id")
+    @JsonIgnore
+    private Link link;
 }

@@ -22,7 +22,7 @@ public class GenerateShortUrlService {
         );
         String shortUrl = "";
         int countCharacters = characters.size(); 
-        for(int i=0; i<7; i++) {
+        for(int i=0; i<6; i++) {
             shortUrl += characters.get((new Random()).nextInt(countCharacters - 1));            
         }
         return shortUrl;

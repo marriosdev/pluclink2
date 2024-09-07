@@ -6,10 +6,16 @@ import com.pluclink.api.modules.Link.dtos.LinkRecordDto;
 import com.pluclink.api.modules.Link.models.Link;
 import com.pluclink.api.modules.Link.repositories.LinkRepository;
 import com.pluclink.api.modules.Link.services.CreateNewShortLinkService;
+import com.pluclink.api.modules.Link.services.GetLinkDetailsService;
 import com.pluclink.api.modules.Link.services.RedirectShortLinkService;
 
 import jakarta.validation.Valid;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpStatus;
@@ -29,6 +35,9 @@ public class LinkController {
 
     @Autowired
     protected CreateNewShortLinkService createNewShortLinkService;
+    
+    @Autowired
+    protected GetLinkDetailsService getLinkDetailsService;
 
     @Autowired 
     protected RedirectShortLinkService redirectShortLinkService;
@@ -39,7 +48,14 @@ public class LinkController {
     }
 
     @GetMapping("/{shortUrl}")
-    public ResponseEntity<String> redirectUrl(@PathVariable(value="shortUrl") String shortUrl) throws NotFoundException {
-        return ResponseEntity.status(HttpStatus.OK).body(redirectShortLinkService.execute(shortUrl));
+    public ResponseEntity<Object> redirectUrl(@PathVariable(value="shortUrl") String shortUrl) throws NotFoundException {
+        Map<String, String> response = new HashMap<>();
+        response.put("url", redirectShortLinkService.execute(shortUrl));
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping("links/{uuid}")
+    public ResponseEntity<Object> getLinkDetails(@PathVariable(value="uuid") UUID uuid) {
+        return ResponseEntity.status(HttpStatus.OK).body(getLinkDetailsService.execute(uuid));
     }
 }
