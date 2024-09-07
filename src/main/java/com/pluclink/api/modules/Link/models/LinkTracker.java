@@ -15,7 +15,8 @@ import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter 
+@Setter
 @Entity
 public class LinkTracker {
     @Id
