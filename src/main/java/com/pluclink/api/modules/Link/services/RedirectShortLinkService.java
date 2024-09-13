@@ -28,6 +28,7 @@ public class RedirectShortLinkService {
 
     public OnlyUuidAndUrlLinkProjection execute(String shortUrl, String ip) throws NotFoundException {
         Optional<OnlyUuidAndUrlLinkProjection> reference = linkRepository.findUrlAndUuidByShortUrl(shortUrl);
+        
         if (reference.isEmpty()) {
             throw new NotFoundException("Item não encontrado");
         }

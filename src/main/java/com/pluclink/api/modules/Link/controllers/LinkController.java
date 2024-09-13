@@ -10,6 +10,7 @@ import com.pluclink.api.modules.Link.services.RedirectShortLinkService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.UUID;
 
@@ -41,7 +42,7 @@ public class LinkController {
     }
 
     @GetMapping("/{shortUrl}")
-    public ResponseEntity<Object> redirectUrl(@PathVariable(value="shortUrl") String shortUrl, HttpServletRequest request) throws NotFoundException {
+    public ResponseEntity<Object> redirectUrl(@NotNull @PathVariable(value="shortUrl") String shortUrl, HttpServletRequest request) throws NotFoundException {
         return ResponseEntity.status(HttpStatus.OK).body(redirectShortLinkService.execute(shortUrl, request.getRemoteAddr()));
     }
 
