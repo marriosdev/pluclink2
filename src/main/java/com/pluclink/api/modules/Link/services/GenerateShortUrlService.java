@@ -20,11 +20,14 @@ public class GenerateShortUrlService {
                 "8", "9"
             )
         );
+        
         String shortUrl = "";
         int countCharacters = characters.size(); 
+
         for(int i=0; i<6; i++) {
             shortUrl += characters.get((new Random()).nextInt(countCharacters - 1));            
         }
+        
         return shortUrl;
     }
 }
